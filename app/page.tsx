@@ -87,12 +87,7 @@ export default function Home() {
 					<Field name="product">
 						<Label>Product name</Label>
 						<TextInput>
-							<TextInput.Control
-								placeholder="Enter the name of the product"
-								value={email}
-								onChange={handleEmailChange}
-								onBlur={() => validateEmail(email)}
-							/>
+							<TextInput.Control placeholder="Enter the name of the product" />
 						</TextInput>
 						<ErrorMessage />
 					</Field>
