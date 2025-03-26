@@ -53,17 +53,28 @@ export default function Home() {
 					<Field name="email" error={emailError} required>
 						<Label>Email Address</Label>
 						<Description>We&apos;ll never share your email.</Description>
-						<TextInput
-							placeholder="Enter your email"
-							value={email}
-							onChange={handleEmailChange}
-							onBlur={() => validateEmail(email)}
-						/>
+						<TextInput>
+							<TextInput.Control
+								placeholder="Enter your email"
+								type="email"
+								value={email}
+								onChange={handleEmailChange}
+								onBlur={() => validateEmail(email)}
+							/>
+						</TextInput>
 						<ErrorMessage />
 					</Field>
 					<Field name="password" required>
 						<Label>Password</Label>
-						<TextInput placeholder="Enter your password" />
+						<TextInput>
+							<TextInput.Control
+								placeholder="Enter your password"
+								type="password"
+							/>
+							<TextInput.Slot>
+								<Button label="EYE" variant="text" size="small" />
+							</TextInput.Slot>
+						</TextInput>
 					</Field>
 
 					<Button label="Submit" />
@@ -75,17 +86,31 @@ export default function Home() {
 				<form onSubmit={handleSubmit} className="flex flex-col gap-[22px]">
 					<Field name="product">
 						<Label>Product name</Label>
-						<TextInput
-							placeholder="Enter the name of the product"
-							value={email}
-							onChange={handleEmailChange}
-							onBlur={() => validateEmail(email)}
-						/>
+						<TextInput>
+							<TextInput.Control
+								placeholder="Enter the name of the product"
+								value={email}
+								onChange={handleEmailChange}
+								onBlur={() => validateEmail(email)}
+							/>
+						</TextInput>
 						<ErrorMessage />
 					</Field>
 					<Field name="price">
 						<Label>Price</Label>
-						<TextInput placeholder="0.00" />
+						<TextInput>
+							<TextInput.Slot>$</TextInput.Slot>
+							<TextInput.Control placeholder="0.00" type="number" />
+						</TextInput>
+					</Field>
+					<Field name="disabled">
+						<Label>Disabled field</Label>
+						<TextInput>
+							<TextInput.Control
+								disabled
+								placeholder="This is well and truly disabled"
+							/>
+						</TextInput>
 					</Field>
 
 					<Button label="Submit" />
