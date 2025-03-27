@@ -9,10 +9,14 @@ import { TextInput } from "@/components/TextInput";
 import { Description } from "@/components/Description";
 import { ErrorMessage } from "@/components/ErrorMessage";
 import { Button } from "@/components/Button";
+import { Select } from "@/components/Select";
+import { usePhoneFormat } from "@/hooks/usePhoneFormat";
 
 export default function Home() {
 	const [email, setEmail] = useState("");
 	const [emailError, setEmailError] = useState<string | undefined>();
+	const [phone, setPhone] = useState("");
+	usePhoneFormat(phone, setPhone);
 
 	const validateEmail = (value: string) => {
 		if (!value) {
@@ -45,7 +49,7 @@ export default function Home() {
 	};
 
 	return (
-		<main className="flex min-h-screen flex flex-col gap-[55px] items-center justify-center">
+		<main className="flex min-h-screen flex flex-col gap-[55px] py-[55px] items-center justify-center">
 			<div className="w-full max-w-md flex flex-col p-[22px] gap-[22px] rounded-[4px] border border-[var(--rosetta-gray-800)]">
 				<h1>Field Example</h1>
 
@@ -77,7 +81,7 @@ export default function Home() {
 						</TextInput>
 					</Field>
 
-					<Button label="Submit" />
+					<Button label="Submit" type="submit" />
 				</form>
 			</div>
 			<div className="w-full max-w-md flex flex-col p-[22px] gap-[22px] rounded-[4px] border border-[var(--rosetta-gray-800)]">
@@ -107,8 +111,73 @@ export default function Home() {
 							/>
 						</TextInput>
 					</Field>
-
-					<Button label="Submit" />
+					<Field name="website">
+						<Label>Website</Label>
+						<TextInput>
+							<TextInput.Slot>https://</TextInput.Slot>
+							<TextInput.Control placeholder="url" />
+							<TextInput.Slot>.com</TextInput.Slot>
+						</TextInput>
+					</Field>
+					<Field name="phone">
+						<Label>Phone number</Label>
+						<TextInput className="pl-[0px]">
+							<TextInput.Slot>
+								<Select className="w-auto border-r-1 border-r-[var(--rosetta-gray-800)]">
+									<Select.Control>
+										<Select.Option>+1 (US/CA)</Select.Option>
+										<Select.Option>+52 (MX)</Select.Option>
+										<Select.Option>+86 (CN)</Select.Option>
+										<Select.Option>+998 (UZ)</Select.Option>
+									</Select.Control>
+								</Select>
+							</TextInput.Slot>
+							<TextInput.Control placeholder="123-456-7890" type="tel" />
+						</TextInput>
+					</Field>
+					<Field name="select">
+						<Label>Select</Label>
+						<Select>
+							<Select.Control>
+								<Select.Option>1</Select.Option>
+								<Select.Option>2</Select.Option>
+								<Select.Option>3</Select.Option>
+							</Select.Control>
+						</Select>
+					</Field>
+					<Field name="select-with-slot">
+						<Label>Select with a slot</Label>
+						<Select>
+							<Select.Slot>$</Select.Slot>
+							<Select.Control>
+								<Select.Option>100</Select.Option>
+								<Select.Option>200</Select.Option>
+								<Select.Option>300</Select.Option>
+							</Select.Control>
+						</Select>
+					</Field>
+					<Field name="phone-with-formatting">
+						<Label>Phone number with formatting</Label>
+						<TextInput className="pl-[0px]">
+							<TextInput.Slot>
+								<Select className="w-auto">
+									<Select.Control>
+										<Select.Option>+1 (US/CA)</Select.Option>
+										<Select.Option>+52 (MX)</Select.Option>
+										<Select.Option>+86 (CN)</Select.Option>
+										<Select.Option>+998 (UZ)</Select.Option>
+									</Select.Control>
+								</Select>
+							</TextInput.Slot>
+							<TextInput.Control
+								placeholder="123-456-7890"
+								type="tel"
+								value={phone}
+								onChange={(e) => setPhone(e.target.value)}
+							/>
+						</TextInput>
+					</Field>
+					<Button label="Submit" type="submit" />
 				</form>
 			</div>
 		</main>

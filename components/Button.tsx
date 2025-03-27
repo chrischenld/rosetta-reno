@@ -4,16 +4,18 @@ interface ButtonProps {
 	label: string;
 	variant?: "primary" | "text";
 	size?: "small" | "medium" | "large";
+	type?: "submit" | "reset" | "button";
 }
 
 export function Button({
 	label,
 	variant = "primary",
-	size = "medium",
+	size = "large",
+	type = "button",
 }: ButtonProps) {
 	return (
 		<button
-			type="submit"
+			type={type}
 			className={cn(
 				"w-full font-Clarkson font-medium text-[14px] rounded-[2px] hover:cursor-pointer",
 				variant === "primary" &&

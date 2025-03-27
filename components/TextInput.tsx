@@ -166,7 +166,7 @@ export const TextInput = ({ children, className }: TextInputProps) => {
 		>
 			<div
 				className={cn(
-					"flex gap-[6px] h-[44px] w-full items-center rounded-[2px] px-[11px] py-[6px] ring-offset-0",
+					"flex h-[44px] w-full items-center rounded-[2px] pl-[11px] pr-[11px] py-[6px] ring-offset-0",
 					// Only show focus ring when Control is focused
 					focusedElement === "control" &&
 						"focus-within:ring-2 focus-within:ring-[var(--rosetta-gray-100)]",
@@ -181,7 +181,7 @@ export const TextInput = ({ children, className }: TextInputProps) => {
 					className
 				)}
 			>
-				{children}
+				<div className="flex w-full gap-[6px]">{children}</div>
 			</div>
 		</TextInputContext.Provider>
 	);
