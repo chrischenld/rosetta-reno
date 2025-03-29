@@ -20,6 +20,7 @@ interface TextInputContextValue {
 	focusedElement?: "control" | "slot" | null;
 	handleFocus?: (element: "control" | "slot") => void;
 	handleBlur?: () => void;
+	children?: React.ReactNode;
 }
 
 export const TextInputContext = createContext<
@@ -83,7 +84,7 @@ const TextInputControl = forwardRef<HTMLInputElement, TextInputControlProps>(
 				onFocus={() => context?.handleFocus?.("control")}
 				onBlur={() => context?.handleBlur?.()}
 				className={cn(
-					"h-[44px] w-full bg-transparent text-sm ring-offset-0 placeholder:text-[var(--rosetta-gray-400)] focus-visible:outline-none disabled:cursor-not-allowed",
+					"h-[44px] pl-[11px] pr-[11px] w-full bg-transparent text-sm ring-offset-0 placeholder:text-[var(--rosetta-gray-400)] focus-visible:outline-none disabled:cursor-not-allowed",
 					disabled && "placeholder:text-[var(--rosetta-gray-600)]",
 					className
 				)}
@@ -97,6 +98,25 @@ TextInputControl.displayName = "TextInput.Control";
 
 const TextInputSlot = ({ children, className }: TextInputSlotProps) => {
 	const context = useContext(TextInputContext);
+	const slotRef = React.useRef<HTMLDivElement>(null);
+	const [position, setPosition] = React.useState({
+		isFirst: false,
+		isLast: false,
+	});
+
+	// Detect position based on DOM structure when mounted
+	React.useEffect(() => {
+		const slotNode = slotRef.current;
+		if (!slotNode || !slotNode.parentElement) return;
+
+		// Check if we're the first child
+		const isFirst = slotNode === slotNode.parentElement.firstElementChild;
+
+		// Check if we're the last child
+		const isLast = slotNode === slotNode.parentElement.lastElementChild;
+
+		setPosition({ isFirst, isLast });
+	}, []);
 
 	// Clone children to add focus handlers
 	const childrenWithFocus = React.Children.map(children, (child) => {
@@ -117,8 +137,13 @@ const TextInputSlot = ({ children, className }: TextInputSlotProps) => {
 
 	return (
 		<div
+			ref={slotRef}
 			className={cn(
 				"flex items-center text-[var(--rosetta-gray-400)] text-[14px]",
+				// Add left padding if it's first or the only slot
+				position.isFirst ? "pl-[11px]" : "",
+				// Add right padding if it's last or the only slot
+				position.isLast ? "pr-[11px]" : "",
 				className
 			)}
 		>
@@ -162,11 +187,12 @@ export const TextInput = ({ children, className }: TextInputProps) => {
 				focusedElement,
 				handleFocus,
 				handleBlur,
+				children,
 			}}
 		>
 			<div
 				className={cn(
-					"flex h-[44px] w-full items-center rounded-[2px] pl-[11px] pr-[11px] py-[6px] ring-offset-0",
+					"flex h-[44px] w-full items-center rounded-[2px] py-[6px] ring-offset-0",
 					// Only show focus ring when Control is focused
 					focusedElement === "control" &&
 						"focus-within:ring-2 focus-within:ring-[var(--rosetta-gray-100)]",
@@ -181,7 +207,7 @@ export const TextInput = ({ children, className }: TextInputProps) => {
 					className
 				)}
 			>
-				<div className="flex w-full gap-[6px]">{children}</div>
+				<div className="flex w-full">{children}</div>
 			</div>
 		</TextInputContext.Provider>
 	);

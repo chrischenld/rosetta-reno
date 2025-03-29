@@ -61,24 +61,38 @@ const useFocusState = () => {
 };
 
 const SelectControl = forwardRef<HTMLSelectElement, SelectControlProps>(
-	({ className, children, ...props }, ref) => {
+	({ className, children, value, ...props }, ref) => {
 		const [open, setOpen] = useState(false);
 		const context = useContext(SelectContext);
 
+		// Find the selected option's text
+		const selectedText =
+			React.Children.toArray(children).find(
+				(child) =>
+					React.isValidElement<SelectOptionProps>(child) &&
+					child.type === Option &&
+					"value" in child.props &&
+					child.props.value === value
+			) || React.Children.toArray(children)[0];
+
 		return (
 			<SelectContext.Provider value={{ open, setOpen }}>
-				<select
-					ref={ref}
-					onFocus={() => context?.handleFocus?.("control")}
-					onBlur={() => context?.handleBlur?.()}
-					className={cn(
-						"h-[44px] min-w-fit bg-transparent text-[var(--rosetta-gray-100)] text-[14px] ring-offset-0 disabled:cursor-not-allowed disabled:bg-[var(--rosetta-gray-800)] focus-visible:outline-none appearance-none moz-appearance-none webkit-appearance-none",
-						className
-					)}
-					{...props}
-				>
-					{children}
-				</select>
+				<div className="relative flex-1">
+					<select
+						ref={ref}
+						value={value}
+						onFocus={() => context?.handleFocus?.("control")}
+						onBlur={() => context?.handleBlur?.()}
+						className={cn(
+							"absolute inset-0 h-full w-full bg-transparent text-[var(--rosetta-gray-100)] text-[14px] ring-offset-0 disabled:cursor-not-allowed disabled:bg-[var(--rosetta-gray-800)] focus-visible:outline-none appearance-none moz-appearance-none webkit-appearance-none cursor-pointer",
+							className
+						)}
+						{...props}
+					>
+						{children}
+					</select>
+					<span className="pointer-events-none">{selectedText}</span>
+				</div>
 			</SelectContext.Provider>
 		);
 	}
@@ -152,7 +166,7 @@ export const Select = ({ children, className }: SelectProps) => {
 					className
 				)}
 			>
-				<div className="flex min-w-fit gap-[6px]">{children}</div>
+				<div className="flex w-full min-w-fit gap-[6px]">{children}</div>
 			</div>
 		</SelectContext.Provider>
 	);

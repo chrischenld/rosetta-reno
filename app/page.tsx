@@ -85,16 +85,9 @@ export default function Home() {
 				</form>
 			</div>
 			<div className="w-full max-w-md flex flex-col p-[22px] gap-[22px] rounded-[4px] border border-[var(--rosetta-gray-800)]">
-				<h1>Field Example</h1>
+				<h1>More Examples</h1>
 
 				<form onSubmit={handleSubmit} className="flex flex-col gap-[22px]">
-					<Field name="product">
-						<Label>Product name</Label>
-						<TextInput>
-							<TextInput.Control placeholder="Enter the name of the product" />
-						</TextInput>
-						<ErrorMessage />
-					</Field>
 					<Field name="price">
 						<Label>Price</Label>
 						<TextInput>
@@ -121,11 +114,11 @@ export default function Home() {
 					</Field>
 					<Field name="phone">
 						<Label>Phone number</Label>
-						<TextInput className="pl-[0px]">
+						<TextInput>
 							<TextInput.Slot>
-								<Select className="w-auto border-r-1 border-r-[var(--rosetta-gray-800)]">
+								<Select>
 									<Select.Control>
-										<Select.Option>+1 (US/CA)</Select.Option>
+										<Select.Option>+1 (USA)</Select.Option>
 										<Select.Option>+52 (MX)</Select.Option>
 										<Select.Option>+86 (CN)</Select.Option>
 										<Select.Option>+998 (UZ)</Select.Option>
@@ -160,9 +153,9 @@ export default function Home() {
 						<Label>Phone number with formatting</Label>
 						<TextInput className="pl-[0px]">
 							<TextInput.Slot>
-								<Select className="w-auto">
+								<Select>
 									<Select.Control>
-										<Select.Option>+1 (US/CA)</Select.Option>
+										<Select.Option>+1 (USA)</Select.Option>
 										<Select.Option>+52 (MX)</Select.Option>
 										<Select.Option>+86 (CN)</Select.Option>
 										<Select.Option>+998 (UZ)</Select.Option>
@@ -176,6 +169,64 @@ export default function Home() {
 								onChange={(e) => setPhone(e.target.value)}
 							/>
 						</TextInput>
+					</Field>
+					<Button label="Submit" type="submit" />
+				</form>
+			</div>
+			<div className="w-full max-w-md flex flex-col p-[22px] gap-[22px] rounded-[4px] border border-[var(--rosetta-gray-800)]">
+				<h1>Pro UI (consumer custom styles)</h1>
+
+				<form onSubmit={handleSubmit} className="flex flex-col gap-[22px]">
+					<Field
+						name="page"
+						className="flex flex-row space-between items-center"
+					>
+						<Label className="text-[14px] w-1/2">Page name</Label>
+						<TextInput className="bg-transparent border-1 border-[var(--rosetta-gray-800)] rounded-[6px] w-1/2 focus-visible:ring-none focus-visible:border-none">
+							<TextInput.Control placeholder="Name of new page" />
+						</TextInput>
+						<ErrorMessage />
+					</Field>
+					<Field
+						name="margin"
+						className="flex flex-row space-between items-center"
+					>
+						<Label className="text-[14px] w-1/2">
+							Margin (default, L aligned)
+						</Label>
+						<TextInput className="bg-transparent border-1 border-[var(--rosetta-gray-800)] rounded-[6px] w-1/2">
+							<TextInput.Control placeholder="Enter margin" />
+							<TextInput.Slot>px</TextInput.Slot>
+						</TextInput>
+						<ErrorMessage />
+					</Field>
+					<Field
+						name="padding"
+						className="flex flex-row space-between items-center"
+					>
+						<Label className="text-[14px] w-1/2">Padding (R aligned)</Label>
+						<TextInput className="bg-transparent border-1 border-[var(--rosetta-gray-800)] rounded-[6px] w-1/2">
+							<TextInput.Control
+								placeholder="Enter padding"
+								className="text-right"
+							/>
+							<TextInput.Slot>px</TextInput.Slot>
+						</TextInput>
+						<ErrorMessage />
+					</Field>
+					<Field
+						name="visitors"
+						className="flex flex-row space-between items-center"
+					>
+						<Label className="text-[14px] w-1/2">Visitors</Label>
+						<Select className="bg-transparent border-1 border-[var(--rosetta-gray-800)] rounded-[6px] w-1/2">
+							<Select.Control className="w-full">
+								<Select.Option>1</Select.Option>
+								<Select.Option>2</Select.Option>
+								<Select.Option>3</Select.Option>
+							</Select.Control>
+						</Select>
+						<ErrorMessage />
 					</Field>
 					<Button label="Submit" type="submit" />
 				</form>
