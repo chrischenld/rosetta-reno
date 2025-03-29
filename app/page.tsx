@@ -95,15 +95,6 @@ export default function Home() {
 							<TextInput.Control placeholder="0.00" type="number" />
 						</TextInput>
 					</Field>
-					<Field name="disabled">
-						<Label>Disabled field</Label>
-						<TextInput>
-							<TextInput.Control
-								disabled
-								placeholder="This is well and truly disabled"
-							/>
-						</TextInput>
-					</Field>
 					<Field name="website">
 						<Label>Website</Label>
 						<TextInput>
@@ -115,7 +106,7 @@ export default function Home() {
 					<Field name="phone">
 						<Label>Phone number</Label>
 						<TextInput>
-							<TextInput.Slot>
+							<TextInput.Slot className="pl-0">
 								<Select>
 									<Select.Control>
 										<Select.Option>+1 (USA)</Select.Option>
@@ -151,8 +142,8 @@ export default function Home() {
 					</Field>
 					<Field name="phone-with-formatting">
 						<Label>Phone number with formatting</Label>
-						<TextInput className="pl-[0px]">
-							<TextInput.Slot>
+						<TextInput>
+							<TextInput.Slot className="pl-0">
 								<Select>
 									<Select.Control>
 										<Select.Option>+1 (USA)</Select.Option>
@@ -170,10 +161,19 @@ export default function Home() {
 							/>
 						</TextInput>
 					</Field>
+					<Field name="disabled">
+						<Label>Disabled field</Label>
+						<TextInput>
+							<TextInput.Control
+								disabled
+								placeholder="This is well and truly disabled"
+							/>
+						</TextInput>
+					</Field>
 					<Button label="Submit" type="submit" />
 				</form>
 			</div>
-			<div className="w-full max-w-md flex flex-col p-[22px] gap-[22px] rounded-[4px] border border-[var(--rosetta-gray-800)]">
+			<div className="w-full max-w-md flex flex-col p-[22px] gap-[22px] rounded-[4px] shadow-[0px_0.17px_2.21px_0px_#00000005,0px_0.4px_5.32px_0px_#00000007,0px_0.75px_10.02px_0px_#00000009,0px_1.34px_17.87px_0px_#0000000B,0px_2.51px_33.42px_0px_#0000000D,0px_6px_80px_0px_#00000012]">
 				<h1>Pro UI (consumer custom styles)</h1>
 
 				<form onSubmit={handleSubmit} className="flex flex-col gap-[22px]">
