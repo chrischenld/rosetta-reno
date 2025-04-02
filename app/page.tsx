@@ -10,6 +10,7 @@ import { Description } from "@/components/Description";
 import { ErrorMessage } from "@/components/ErrorMessage";
 import { Button } from "@/components/Button";
 import { Select } from "@/components/Select";
+import { Dropdown } from "@/components/Dropdown";
 import { usePhoneFormat } from "@/hooks/usePhoneFormat";
 
 export default function Home() {
@@ -182,7 +183,7 @@ export default function Home() {
 						className="flex flex-row space-between items-center"
 					>
 						<Label className="text-[14px] w-1/2">Page name</Label>
-						<TextInput className="bg-transparent border-1 border-[var(--rosetta-gray-800)] rounded-[6px] w-1/2 focus-visible:ring-none focus-visible:border-none">
+						<TextInput className="bg-transparent border border-[var(--rosetta-gray-800)] rounded-[6px] w-1/2 focus-within:border-transparent">
 							<TextInput.Control placeholder="Name of new page" />
 						</TextInput>
 						<ErrorMessage />
@@ -194,7 +195,7 @@ export default function Home() {
 						<Label className="text-[14px] w-1/2">
 							Margin (default, L aligned)
 						</Label>
-						<TextInput className="bg-transparent border-1 border-[var(--rosetta-gray-800)] rounded-[6px] w-1/2">
+						<TextInput className="bg-transparent border border-[var(--rosetta-gray-800)] rounded-[6px] w-1/2 focus-within:border-transparent">
 							<TextInput.Control placeholder="Enter margin" />
 							<TextInput.Slot>px</TextInput.Slot>
 						</TextInput>
@@ -205,7 +206,7 @@ export default function Home() {
 						className="flex flex-row space-between items-center"
 					>
 						<Label className="text-[14px] w-1/2">Padding (R aligned)</Label>
-						<TextInput className="bg-transparent border-1 border-[var(--rosetta-gray-800)] rounded-[6px] w-1/2">
+						<TextInput className="bg-transparent border border-[var(--rosetta-gray-800)] rounded-[6px] w-1/2 focus-within:border-transparent">
 							<TextInput.Control
 								placeholder="Enter padding"
 								className="text-right"
@@ -219,13 +220,27 @@ export default function Home() {
 						className="flex flex-row space-between items-center"
 					>
 						<Label className="text-[14px] w-1/2">Visitors</Label>
-						<Select className="bg-transparent border-1 border-[var(--rosetta-gray-800)] rounded-[6px] w-1/2">
+						<Select className="bg-transparent border border-[var(--rosetta-gray-800)] rounded-[6px] w-1/2 focus-within:border-transparent">
 							<Select.Control className="w-full">
 								<Select.Option>1</Select.Option>
 								<Select.Option>2</Select.Option>
 								<Select.Option>3</Select.Option>
 							</Select.Control>
 						</Select>
+						<ErrorMessage />
+					</Field>
+					<Field
+						name="admins"
+						className="flex flex-row space-between items-center"
+					>
+						<Label className="text-[14px] w-1/2">Admins</Label>
+						<Dropdown className="bg-transparent border border-[var(--rosetta-gray-800)] rounded-[6px] w-1/2 focus-within:border-transparent">
+							<Dropdown.Control className="w-full">
+								<Dropdown.Option value="john">John</Dropdown.Option>
+								<Dropdown.Option value="jake">Jake</Dropdown.Option>
+								<Dropdown.Option value="bouby">Bouby</Dropdown.Option>
+							</Dropdown.Control>
+						</Dropdown>
 						<ErrorMessage />
 					</Field>
 					<Button label="Submit" type="submit" />
